@@ -1,0 +1,13 @@
+[package]
+name = "cosmic-applet-gpu-watch"
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-or-later"
+
+[dependencies]
+libcosmic = { git = "https://github.com/pop-os/libcosmic", default-features = false, features = [
+    "applet",
+    "tokio",
+    "wayland",
+] }
+tokio = { version = "1", features = ["full"] }
