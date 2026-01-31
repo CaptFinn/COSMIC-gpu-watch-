@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=GPU Watch
+Comment=Monitor GPU temperature and usage
+Keywords=GPU;Monitor;Temperature;NVIDIA;
+Icon=com.captfinn.CosmicAppletGpuWatch
+Type=Application
+Exec=cosmic-applet-gpu-watch
+Terminal=false
+Categories=COSMIC;
+StartupNotify=true
+NoDisplay=true
+X-CosmicApplet=true
+X-CosmicShrinkable=true
+X-HostWaylandDisplay=true
+X-CosmicHoverPopup=Auto
+X-OverflowPriority=10

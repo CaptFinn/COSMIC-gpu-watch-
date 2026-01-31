@@ -16,7 +16,9 @@ A lightweight COSMIC desktop applet that displays real-time GPU temperature and 
 - **Live GPU monitoring** - Temperature and usage update every 2 seconds
 - **Panel integration** - Sits right in your COSMIC top bar
 - **Temperature icons** - Visual feedback at a glance (❄️ → 🌡️ → 🔥 → 🚨)
-- **Zero bloat** - ~120 lines of Rust, no unnecessary dependencies
+- **Click for popup** - Shows detailed stats and label size adjustment
+- **Auto-resize** - Font scales with panel size, or manually adjust via slider
+- **Zero bloat** - ~200 lines of Rust, no unnecessary dependencies
 
 ## 🎮 Display Format
 ```
@@ -42,34 +44,29 @@ If this returns two numbers (like `36, 0`), you're good to go!
 
 ## 🚀 Installation
 
-### Build from Source
+### Prerequisites
 ```bash
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/gpu-watch.git
-cd gpu-watch
+# Install Rust (if not already installed)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# Build release version
-cargo build --release
+# Install just (command runner)
+cargo install just
 
-# Install to system
-sudo cp target/release/cosmic-applet-gpu-watch /usr/local/bin/
-
-# Create desktop entry
-sudo nano /usr/share/applications/com.captfinn.CosmicAppletGpuWatch.desktop
+# Install libcosmic development dependencies (Pop!_OS/Ubuntu)
+sudo apt install libcosmic-dev
 ```
 
-**Desktop entry contents:**
-```desktop
-[Desktop Entry]
-Name=GPU Watch
-Type=Application
-Exec=cosmic-applet-gpu-watch
-Terminal=false
-Categories=COSMIC;
-Icon=gpu-symbolic
-StartupNotify=true
-NoDisplay=true
-X-CosmicApplet=true
+### Build & Install
+```bash
+# Clone the repo
+git clone https://github.com/captfinn/gpu-watch.git
+cd gpu-watch
+
+# Build and install (includes desktop entry)
+sudo just install
+
+# Restart the panel to load the applet
+pkill cosmic-panel
 ```
 
 ### Add to Panel
@@ -78,6 +75,11 @@ X-CosmicApplet=true
 2. Select "Configure Panel" or "Panel Settings"
 3. Look for "GPU Watch" in the applet list
 4. Add it to your panel
+
+### Uninstall
+```bash
+sudo just uninstall
+```
 
 ## 🛠️ Tested Hardware (Literally Just Mine)
 
@@ -93,10 +95,9 @@ X-CosmicApplet=true
 ## ⚠️ Known Limitations
 
 - **NVIDIA only** - Uses `nvidia-smi` for GPU data
-- **Not tested on AMD/Intel** - May or may not work with `radeontop` or `intel_gpu_top`
+- **Not tested on AMD/Intel** - PRs welcome for `radeontop` or `intel_gpu_top` support
 - **Pop!_OS 24 specific** - COSMIC applet API is evolving; may not work on other COSMIC implementations
-- **No configuration UI** - Refresh rate and display format are hardcoded
-- **I built this in one night** - Code quality reflects that reality
+- **Refresh rate hardcoded** - Updates every 2 seconds (change in code if needed)
 
 ## 🧠 How It Works
 
@@ -120,8 +121,7 @@ MIT License - Use the code however you want. **No warranty. Seriously. None. Zer
 PRs welcome! Especially for:
 - AMD GPU support (via `radeontop`)
 - Intel GPU support (via `intel_gpu_top`)
-- Configuration options
-- Click-to-show-details popup
+- Configurable refresh rate
 - Testing on hardware that isn't mine
 
 ## 🎉 Credits
